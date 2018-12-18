@@ -1,3 +1,5 @@
+import flask
+
 import pytest
 
 from io import StringIO
@@ -15,12 +17,29 @@ def test_index(client):
 	response = response.data.decode('utf-8')
 	assert 'Hello' in response
 
-def test_items(client):
+def test_get_items(client):
 	with mock.patch('hello.open') as mocked:
 		mocked.return_value = StringIO('{"test": 1}')
 		response = client.get('/items')
 		response = response.data.decode('utf-8')
-		print(response)
 		assert '<li>test: 1</li>' in response
+
+def test_post_items(client):
+	with mock.patch('hello.open') as mocked:
+		mocked.return_value = StringIO('{}')
+		response = client.post('/items', data={'item': 'test', 'quantity': 1})
+		response = response.data.decode('utf-8')
+		print(response)
+		assert " " in response
+
+#def test_post_update_items(client):
+#	with mock.patch('hello.open') as mocked:
+#		mocked.return_value = StringIO('{}')
+#		response = client.post('/items', data={'item': 'test', 'quantity': 1})
+#		response = response.data.decode('utf-8')
+#		print(response)
+#		assert False
+
+
 
 
