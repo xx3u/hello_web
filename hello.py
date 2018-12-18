@@ -9,6 +9,11 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
+def index():
+	return render_template('index.html')
+
+
+@app.route('/items', methods=['GET', 'POST'])
 def hello():
 	with open('db.txt', 'r') as f:
 		items = json.load(f)
@@ -26,6 +31,8 @@ def hello():
 			items.pop(item)
 			with open('db.txt', 'w') as f2:
 				json.dump(items, f2)
+#		return items.items()
+
 	return render_template('hello.html', items=items)
 
 
