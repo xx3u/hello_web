@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>Hello</title>
+	</head>
+	<body>
+		<ul>
+			{% for item, quantity in items.items() %}
+			<li>{{ item }}: {{ quantity }}</li>
+			{% endfor %}
+		</ul>
+		<form method="POST">
+			<p><label>1. Item</label><input type="text" name="item" value="smartphone"/>
+			<label>Quantity</label><input type="text" name="quantity" value="100"/></p>
+			<input type="submit" value="Update" name="update"/>
+			<input type="submit" value="Delete" name="delete"/>
+		</form>
+	</body>
+</html>

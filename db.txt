@@ -1,0 +1,1 @@
+{"smartwatch": "27", "cable": "200", "smartphone": "100", "flash": "150", "TV": "27", "notebook": "157", "smartbook": "100", "microwave": "257"}
