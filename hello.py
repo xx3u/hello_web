@@ -22,7 +22,7 @@ def hello():
 			items.update({item: quantity})
 			with open('db.txt', 'w') as f2:
 				json.dump(items, f2)
-		elif delete:
+		if delete:
 			items.pop(item)
 			with open('db.txt', 'w') as f2:
 				json.dump(items, f2)
