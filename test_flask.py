@@ -54,17 +54,12 @@ def test_post_items_add(client, db_data):
         mocked.return_value = db_data
         response = client.post(
             '/items',
-            data={'_name': 'smartwatch', '_quantity': 55, '_name': 'CD', '_quantity': 123}
+            data={'add': ''}
         )
         response = response.data.decode('utf-8')
         print(response)
-        assert '<input type="text" value="smartwatch" name="smartwatch_name">' in response
-        assert '<input type="text" value="55" name="smartwatch_quantity">' \
-            in response
-        assert '<input type="text" value="CD" name="CD_name">' in response
-        assert '<input type="text" value="123" name="CD_quantity">' \
-            in response
-                
+        assert '<input type="text" value="_" name="__name">' in response
+        assert '<input type="text" value="0" name="__quantity">' in response
 
 def test_post_items_remove(client, db_data):
     with mock.patch('hello.open') as mocked:
