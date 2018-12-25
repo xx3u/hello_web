@@ -1,21 +1,17 @@
 <html>
-	<head>
-		<title>Hello</title>
-	</head>
-	<body>
-		<ul>
-			{% for item, quantity in items.items() %}
-			<li>{{ item }}: {{ quantity }}</li>
-			{% endfor %}
-		</ul>
-		<form method="POST">
-			<p><label>1. Item</label><input type="text" name="item" value="smartphone"/>
-			<label>Quantity</label><input type="text" name="quantity" value="100"/>
-			<input type="checkbox" name="update">Update
-			<input type="checkbox" name="delete">Delete<br></p>
-			
-			<input type="submit"/>
-			
-		</form>
-	</body>
+  <head>
+    <title>Hello_project </title>
+  </head>
+  <body>
+    <ul>
+      {% for item, quantity in items.items() %}
+        <input value="{{ item }}: {{ quantity }}
+      {% endfor %}
+    </ul>
+    <form method="POST">
+      <label>Item</label><input type="text" name="item"/></p>
+      <label>Quantity</label><input type="text" name="quantity"/>
+      <input type="submit"/>
+    </form>
+  </body>
 </html>

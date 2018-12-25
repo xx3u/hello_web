@@ -1,38 +1,39 @@
 import json
-
 from flask import Flask
 from flask import render_template
 from flask import request
-
-
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-	return render_template('index.html')
+    """
+    Return index page of the web app
+    """
+    return render_template('index.html')
 
 
 @app.route('/items', methods=['GET', 'POST'])
-def hello():
-	with open('db.txt', 'r') as f:
-		items = json.load(f)
-	if request.method == 'POST':
-		item = request.form.get('item')
-		quantity = request.form.get('quantity')
-		update = request.form.get('update')
-		delete = request.form.get('delete')
-#		for item, quantity in items.items():
-		if update: 
-			items.update({item: quantity})
-			with open('db.txt', 'w') as f2:
-				json.dump(items, f2)
-		if delete:
-			items.pop(item)
-			with open('db.txt', 'w') as f2:
-				json.dump(items, f2)
-#		return items.items()
-
-	return render_template('hello.html', items=items)
-
-
+def items():
+    with open('db.txt', 'r') as f:
+        items = json.load(f)
+        if request.method == 'POST':
+            if 'add' in request.form:
+                items['_'] = 0
+            else:
+                items = {}
+            for key in request.form:
+                print(request.form)
+                if key.endswith('name'):
+                    item = request.form[key]
+                    quantity_key = key[:-5] + '_quantity'
+                    quantity = request.form[quantity_key]
+                    items[item] = int(quantity)
+            for key in request.form:
+                if key.endswith('delete'):
+                    if request.form[key]:
+                        key = key[:-7]
+                        del items[key]
+            with open('db.txt', 'w') as f:
+                json.dump(items, f)
+        return render_template('items.html', items=items)

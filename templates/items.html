@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form method="POST">
+    <ul>
+      
+        <input type="text" value="Item" style="border-color:white; border-width:0;">
+        <input type="text" value="Quantity" style="border-color:white; border-width:0;">
+        <input type="text" value="Delete" style="border-color:white; border-width:0;">
+      
+    {% for item, quantity in items.items() %}
+      <li>
+        <input type="text" value="{{ item }}" name="{{ item }}_name">
+        <input type="text" value="{{ quantity }}" name="{{ item }}_quantity">
+        <input type="checkbox" name="{{ item }}_delete">
+      </li>
+    {% endfor %}
+    </ul>
+    <input type="submit" value="Update">
+  </form>
+  <form method="POST">
+    <input type="hidden" name="add">
+    <input type="submit" value="Add">
+  </form>
+{% endblock %}
