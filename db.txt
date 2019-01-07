@@ -1,1 +1,5 @@
-{"notebook": 5, "TV": 10, "smartphone": 25, "flash": 55}
+{"notebook": 5,
+        "TV": 10,
+        "smartphone": 25,
+        "flash": 155
+    }
