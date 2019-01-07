@@ -1,24 +1,31 @@
 {% extends "layout.html" %}
 {% block body %}
   <form method="POST">
-    <ul>
-      
-        <input type="text" value="Item" style="border-color:white; border-width:0;">
-        <input type="text" value="Quantity" style="border-color:white; border-width:0;">
-        <input type="text" value="Delete" style="border-color:white; border-width:0;">
-      
+    <div class="row">
     {% for item, quantity in items.items() %}
-      <li>
-        <input type="text" value="{{ item }}" name="{{ item }}_name">
-        <input type="text" value="{{ quantity }}" name="{{ item }}_quantity">
-        <input type="checkbox" name="{{ item }}_delete">
-      </li>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" aria-label="Checkbox for following text input" name="{{ item }}_delete">
+          </div>
+        </div>
+            <input class="col-3 rounded" type="text" aria-label="Text input with checkbox" value="{{ item }}" name="{{ item }}_name">
+            <input class="col-1 rounded" type="text" aria-label="Text input with checkbox" value="{{ quantity }}" name="{{ item }}_quantity">
+        
+      </div>
     {% endfor %}
-    </ul>
-    <input type="submit" value="Update">
+    </div>
   </form>
-  <form method="POST">
-    <input type="hidden" name="add">
-    <input type="submit" value="Add">
+    <div class="row">
+      <form method="POST">
+        <input class="btn btn-secondary" type="submit" value="Update">
+      </form>
+    </div>
   </form>
+  <div class="row">
+    <form method="POST">
+      <input type="hidden" name="add">
+      <input class="btn btn-secondary" type="submit" value="Add">
+    </form>
+  </div>
 {% endblock %}
