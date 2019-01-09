@@ -1,5 +1,6 @@
 import json
 import pytest
+from lxml import html
 from io import StringIO
 from unittest import mock
 from hello import app
@@ -57,10 +58,10 @@ def test_post_items_add(client, db_data):
             data={'add': ''}
         )
         response = response.data.decode('utf-8')
-        print(response)
-        assert '<input type="text" value="_" name="__name">' in response
-        assert '<input type="text" value="0" name="__quantity">' in response
-
+        response = html.fromstring(response)
+        assert len(response.cssselect('input[name="__name"]')) == 1
+        assert len(response.cssselect('input[name="__quantity"]')) == 1
+               
 def test_post_items_remove(client, db_data):
     with mock.patch('hello.open') as mocked:
         mocked.return_value = db_data
