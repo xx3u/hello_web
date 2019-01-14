@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
-  <form method="POST">
+  <form method="POST" class="form">
     <h4>Item and Quantity</h4>
-    <small>You can find pre-default list of items and quantities. Use options to delete, update or add.</small>
+    <small>You can find predefined list of items and quantities. Use options to delete, update or add.</small>
     <div class="form-row align-items-center">
-      {% for item, quantity in items.items() %}
+    {% for item in items %}
       <div class="form-group col-md-4">
         <input class="form-control" id="inputItem" type="text" value="{{ item }}" name="{{ item }}_name">
       </div>
