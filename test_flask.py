@@ -62,6 +62,7 @@ def test_post_items_add(client, db_data):
         assert len(response.cssselect('input[name="__name"]')) == 1
         assert len(response.cssselect('input[name="__quantity"]')) == 1
                
+
 def test_post_items_remove(client, db_data):
     with mock.patch('hello.open') as mocked:
         mocked.return_value = db_data
