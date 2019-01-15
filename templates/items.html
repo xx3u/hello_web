@@ -4,7 +4,7 @@
     <h4>Item and Quantity</h4>
     <small>You can find predefined list of items and quantities. Use options to delete, update or add.</small>
     <div class="form-row align-items-center">
-    {% for item in items %}
+    {% for item, quantity in items.items() %}
       <div class="form-group col-md-4">
         <input class="form-control" id="inputItem" type="text" value="{{ item }}" name="{{ item }}_name">
       </div>
