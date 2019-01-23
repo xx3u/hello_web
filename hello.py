@@ -1,14 +1,43 @@
+import flask_admin
+from flask_security import Security, PeeweeUserDatastore, login_required
+from hashlib import sha256
 import json
 from flask import Flask
 from flask import render_template
 from flask import request, Response, session, redirect, url_for
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
-from models import Item
+from models import db, Item, User, Role, UserRoles
+from admin import UserAdmin, ItemAdmin
 
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.config['SECURITY_PASSWORD_HASH'] = 'sha256_crypt'
+app.config['SECURITY_PASSWORD_SALT'] = 'salt'
+
+
+# Setup Flask-Security
+user_datastore = PeeweeUserDatastore(db, User, Role, UserRoles)
+security = Security(app, user_datastore)
+
+# Setup flask-admin
+admin = flask_admin.Admin(app, name='Shop Admin')
+admin.add_view(UserAdmin(User))
+admin.add_view(ItemAdmin(Item))
+
+
+# Create a user to test with
+@app.before_first_request
+def create_user():
+    for Model in (Role, User, UserRoles):
+        Model.drop_table(fail_silently=True)
+        Model.create_table(fail_silently=True)
+    user_datastore.create_user(
+        email='test@test.com',
+        password='password'
+    )
+
 
 
 @app.route('/')
@@ -29,6 +58,7 @@ def login():
     return '''
         <form method="post">
             <p><input type=text name=name>
+            
             <p><input type=submit value=Login>
         </form>
     '''
