@@ -27,7 +27,7 @@ admin.add_view(UserAdmin(User))
 admin.add_view(ItemAdmin(Item))
 admin.add_view(CustomerAdmin(Customer))
 admin.add_view(CustomerAdmin(Cart))
-#admin.add_view(CustomerAdmin(CartItem))
+admin.add_view(CustomerAdmin(CartItem))
 
 
 # Create a user to test with
