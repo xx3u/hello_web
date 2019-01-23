@@ -30,3 +30,10 @@ class UserAdmin(AuthMixin, ModelView):
 
 class ItemAdmin(AuthMixin, ModelView):
     pass
+
+
+class CustomerAdmin(AuthMixin, ModelView):
+    pass
+
+
+

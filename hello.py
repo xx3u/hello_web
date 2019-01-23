@@ -1,14 +1,13 @@
-import flask_admin
-from flask_security import Security, PeeweeUserDatastore, login_required
-from hashlib import sha256
 import json
+import flask_admin
 from flask import Flask
 from flask import render_template
 from flask import request, Response, session, redirect, url_for
+from flask_security import Security, PeeweeUserDatastore, login_required
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
-from models import db, Item, User, Role, UserRoles
-from admin import UserAdmin, ItemAdmin
+from models import db, User, Role, UserRoles, Item, Customer, Cart, CartItem
+from admin import UserAdmin, ItemAdmin, CustomerAdmin
 
 
 app = Flask(__name__)
@@ -21,10 +20,14 @@ app.config['SECURITY_PASSWORD_SALT'] = 'salt'
 user_datastore = PeeweeUserDatastore(db, User, Role, UserRoles)
 security = Security(app, user_datastore)
 
+
 # Setup flask-admin
 admin = flask_admin.Admin(app, name='Shop Admin')
 admin.add_view(UserAdmin(User))
 admin.add_view(ItemAdmin(Item))
+admin.add_view(CustomerAdmin(Customer))
+admin.add_view(CustomerAdmin(Cart))
+#admin.add_view(CustomerAdmin(CartItem))
 
 
 # Create a user to test with
@@ -39,8 +42,8 @@ def create_user():
     )
 
 
-
 @app.route('/')
+@login_required
 def index():
     """
     Return index page of the web app
@@ -58,14 +61,13 @@ def login():
     return '''
         <form method="post">
             <p><input type=text name=name>
-            
             <p><input type=submit value=Login>
         </form>
     '''
 
 
 @app.route('/api/items/', methods=['GET', 'POST'])
-@app.route('/api/items/<item_id>/', methods=['GET'])
+@app.route('/api/items/<item_id>/')
 def items(item_id=None):
     if request.method == 'GET':
         if item_id is not None:
@@ -75,7 +77,7 @@ def items(item_id=None):
                 return json.dumps(model_to_dict(item))
             except IndexError:
                 return Response(
-                    json.dumps({'error': 'No results found'}),
+                    json.dumps({'error': 'not found'}),
                     status=404
                 )
         else:
