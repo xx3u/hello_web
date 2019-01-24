@@ -7,7 +7,7 @@ from flask_security import Security, PeeweeUserDatastore, login_required
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
 from models import db, User, Role, UserRoles, Item, Customer, Cart, CartItem
-from admin import UserAdmin, ItemAdmin, CustomerAdmin
+from admin import UserAdmin, ItemAdmin, CustomerAdmin, CartAdmin
 
 
 app = Flask(__name__)
@@ -26,8 +26,8 @@ admin = flask_admin.Admin(app, name='Shop Admin')
 admin.add_view(UserAdmin(User))
 admin.add_view(ItemAdmin(Item))
 admin.add_view(CustomerAdmin(Customer))
-admin.add_view(CustomerAdmin(Cart))
-admin.add_view(CustomerAdmin(CartItem))
+admin.add_view(CartAdmin(Cart))
+#admin.add_view(CustomerAdmin(CartItem))
 
 
 # Create a user to test with

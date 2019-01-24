@@ -36,4 +36,7 @@ class CustomerAdmin(AuthMixin, ModelView):
     pass
 
 
+class CartAdmin(AuthMixin, ModelView):
+    pass
+
 
