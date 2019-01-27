@@ -36,14 +36,23 @@ class Item(BaseModel):
     name = CharField()
     quantity = IntegerField()
 
+    def __str__(self):
+    	return self.name
+
 
 class Customer(BaseModel):
     name = CharField()
     age = IntegerField()
 
+    def __str__(self):
+    	return self.name
+
 
 class Cart(BaseModel):
     customer = ForeignKeyField(Customer, backref='carts')
+
+    def __str__(self):
+        return 'Cart {}'.format(self.id)
 
 
 class CartItem(BaseModel):
