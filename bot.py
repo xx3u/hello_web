@@ -93,9 +93,10 @@ def add(bot, update, args):
             customer = Customer.select().where(
                 Customer.name == customer_name
             )[0]
-            logging.INFO('error')
-        else:
-            item_name = args[0]
+            logging.info('info')
+
+            item_name = args[1]
+            logging.info('items_name: {}'.format(item_name))
             item = Item.select().where(Item.name == item_name)[0]
             cart = Cart(
                 customer=customer
@@ -104,7 +105,7 @@ def add(bot, update, args):
             cart_item = CartItem(
                 cart=cart,
                 item=item,
-                quantity=quantity
+                quantity=1
             )
             cart_item.save()
             bot.send_message(
