@@ -38,7 +38,7 @@ class Item(BaseModel):
     price = IntegerField()
 
     def __str__(self):
-    	return self.name
+        return self.name
 
 
 class Customer(BaseModel):
@@ -46,7 +46,7 @@ class Customer(BaseModel):
     age = IntegerField()
 
     def __str__(self):
-    	return self.name
+        return self.name
 
 
 class Cart(BaseModel):

@@ -4,7 +4,6 @@ from flask import Flask
 from flask import render_template
 from flask import request, Response, session, redirect, url_for
 from flask_security import Security, PeeweeUserDatastore, login_required
-from playhouse.shortcuts import model_to_dict, dict_to_model
 
 from models import db, User, Role, UserRoles, Item, Customer, Cart, CartItem
 from admin import Admin
@@ -33,13 +32,17 @@ admin.add_view(Admin(CartItem))
 # Create a user to test with
 @app.before_first_request
 def create_user():
-    for Model in (Role, User, UserRoles):
+    for Model in (Role, User, UserRoles, Item, Customer, Cart, CartItem):
         Model.drop_table(fail_silently=True)
         Model.create_table(fail_silently=True)
     user_datastore.create_user(
         email='test@test.com',
         password='password'
     )
+    item = Item(name='banana', stock=10, price=10)
+    item.save()
+    item = Item(name='apple', stock=100, price=5)
+    item.save()
 
 
 @app.route('/')

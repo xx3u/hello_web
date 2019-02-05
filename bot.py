@@ -129,7 +129,7 @@ def echo(bot, update):
 
 
 start_handler = CommandHandler('start', start)
-items_handler = CommandHandler('items', items)
+items_handler = CommandHandler('items', items,)
 customer_handler = CommandHandler('customer', customer, pass_args=True)
 add_handler = CommandHandler('add', add, pass_args=True)
 echo_handler = MessageHandler(Filters.text, echo)
