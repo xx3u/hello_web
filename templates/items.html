@@ -1,31 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
-  <form method="POST" class="form">
-    <h4>Item and Quantity</h4>
-    <small>You can find predefined list of items and quantities. Use options to delete, update or add.</small>
+  <form method="GET" class="form">
+    <h4>List of Items</h4>
     <div class="form-row align-items-center">
-    {% for item, quantity in items.items() %}
+    {% for item in items %}
       <div class="form-group col-md-4">
         <input class="form-control" id="inputItem" type="text" value="{{ item }}" name="{{ item }}_name">
-      </div>
-      <div class="form-group col-md-2">
-        <input class="form-control" id="inputQuantity" type="text" value="{{ quantity }}" name="{{ item }}_quantity">
-      </div>
-      <div class="form-group col-md-4">
-        <div class="form-check mb-2">
-          <input type="checkbox" class="form-check-input" name="{{ item }}_delete" id="check1">
-          <label class="form-check-label" for="check1">Delete</label>
-        </div>
       </div>
          
     {% endfor %}
     </div>
   </form>
-    <div class="row">
-      <form method="POST">
-        <input class="btn btn-secondary" type="submit" value="Update">
-         <input type="hidden" name="add">
-        <input class="btn btn-secondary" type="submit" value="Add">
-      </form>
-    </div>
+    
 {% endblock %}

@@ -34,7 +34,8 @@ class UserRoles(BaseModel):
 
 class Item(BaseModel):
     name = CharField()
-    quantity = IntegerField()
+    stock = IntegerField()
+    price = IntegerField()
 
     def __str__(self):
     	return self.name
@@ -58,3 +59,5 @@ class Cart(BaseModel):
 class CartItem(BaseModel):
     cart = ForeignKeyField(Cart, backref='items')
     item = ForeignKeyField(Item, backref='carts')
+    quantity = IntegerField()
+    
