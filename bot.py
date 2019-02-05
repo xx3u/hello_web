@@ -49,9 +49,10 @@ def start(bot, update):
 def items(bot, update, args):
     try:
         items = Item.select()
+        items = ' ,'.join([str(item) for item in items])
         bot.send_message(
             chat_id=update.message.chat_id,
-            text='{}'.format(item.items)
+            text='{}'.format(items)
             )
 
     except Exception as e:
@@ -129,7 +130,7 @@ def echo(bot, update):
 
 
 start_handler = CommandHandler('start', start)
-items_handler = CommandHandler('items', items,)
+items_handler = CommandHandler('items', items, pass_args=True)
 customer_handler = CommandHandler('customer', customer, pass_args=True)
 add_handler = CommandHandler('add', add, pass_args=True)
 echo_handler = MessageHandler(Filters.text, echo)
